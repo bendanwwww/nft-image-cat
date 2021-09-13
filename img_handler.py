@@ -159,7 +159,7 @@ parser.add_argument('--type', '-t', help='需要组装的组件种类, 多个类
 parser.add_argument('--component', '-c', help='指定组件拼装, 多张组件逗号隔开, 图层顺序以传入顺序为准, 传入组件需和组件文件名一致 不传默认随机组装组件种类下的组件', default='all')
 parser.add_argument('--wigth', '-w', help='图片宽度 不传默认500px', default=500)
 parser.add_argument('--high', '-h', help='图片长度 不传默认500px', default=500)
-parser.add_argument('--out', '-o', help='图片输出目录 不传默认为当前目录下out文件夹', default=code_path + "/" + 'out')
+parser.add_argument('--out', '-o', help='图片输出目录 不传默认为当前目录下out文件夹', default=code_path + '/out')
 parser.add_argument('--number', '-n', help='组装组件数量, 当未指定组件拼装时起效', default=sys.maxsize)
 args = parser.parse_args()
 
