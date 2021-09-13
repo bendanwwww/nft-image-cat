@@ -13,6 +13,10 @@ class img_handler(object):
     component_path = ''
     # 图片输出目录
     img_output_path = ''
+    # 图片宽度
+    img_wigth = 0
+    # 图片长度
+    img_high = 0
     # 组件种类
     component_type_list = []
     # 组件文件
@@ -27,9 +31,10 @@ class img_handler(object):
     component_path_dict = {}
 
     def __init__(self, args):
-        code_path = os.path.abspath(os.path.dirname(__file__))
         self.component_path = args.path
-        self.img_output_path = code_path + "/" + 'out'
+        self.img_output_path = args.out
+        self.img_wigth = args.wigth
+        self.img_high = args.high
         self.img_number = int(args.number)
         self.component_type_list = args.type.replace(' ', '').split(',')
         # 创建输出文件夹
@@ -137,7 +142,7 @@ class img_handler(object):
         for item in images:
             img_path = self.component_path_dict[item]
             img = Image.open(img_path)
-            img = img.resize((500, 500), Image.ANTIALIAS)
+            img = img.resize((self.img_high, self.img_wigth), Image.ANTIALIAS)
             if last is None:
                 last = img.convert('RGBA')
             else:
@@ -149,9 +154,12 @@ class img_handler(object):
 code_path = os.path.abspath(os.path.dirname(__file__))
 # 获取命令行参数
 parser = argparse.ArgumentParser()
-parser.add_argument('--path', '-p', help='组件目录 不传默认为当前目录', default=code_path + '/images')
+parser.add_argument('--path', '-p', help='组件目录 不传默认为当前目录下images文件夹', default=code_path + '/images')
 parser.add_argument('--type', '-t', help='需要组装的组件种类, 多个类型逗号隔开, 图层顺序以传入顺序为准, 传入种类需和组件目录下组件文件夹名一致 必传参数', required=True)
 parser.add_argument('--component', '-c', help='指定组件拼装, 多张组件逗号隔开, 图层顺序以传入顺序为准, 传入组件需和组件文件名一致 不传默认随机组装组件种类下的组件', default='all')
+parser.add_argument('--wigth', '-w', help='图片宽度 不传默认500px', default=500)
+parser.add_argument('--high', '-h', help='图片长度 不传默认500px', default=500)
+parser.add_argument('--out', '-o', help='图片输出目录 不传默认为当前目录下out文件夹', default=code_path + "/" + 'out')
 parser.add_argument('--number', '-n', help='组装组件数量, 当未指定组件拼装时起效', default=sys.maxsize)
 args = parser.parse_args()
 
