@@ -121,7 +121,6 @@ class img_handler(object):
                 component_weights_dict[component_type][component_index_dict[component_type]] -= 1
         return build_component_list
 
-
     # 获取目录下所有组件
     def get_all_component(self, path):
         path_file = os.listdir(path)
